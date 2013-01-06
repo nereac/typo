@@ -24,5 +24,12 @@ Feature: edit and add categories
     And I should see "NewPermalink"
     And I should see "NewDescription"
   
-
+  Scenario: edit categorie
+    When I follow Edit for 'General' category
+    Then I should be on the edit 'General' category page
+    And I fill in "Keywords" with "NewKeywords"
+    And I press "Save"
+    Then I should be on the New Categories page
+    And I should see "General"
+    And I should see "NewKeywords"
 
