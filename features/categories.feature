@@ -12,4 +12,17 @@ Feature: edit and add categories
     Then I should be on the New Categories page
 
 
+  Scenario: create a new categorie
+    Then I fill in "Name" with "NewCategorie"
+    And I fill in "Keywords" with "NewKeywords"
+    And I fill in "Permalink" with "NewPermalink"
+    And I fill in "Description" with "NewDescription"
+    And I press "Save"
+    Then I should be on the New Categories page
+    And I should see "NewCategorie"
+    And I should see "NewKeywords"
+    And I should see "NewPermalink"
+    And I should see "NewDescription"
+  
+
 
