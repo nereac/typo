@@ -18,4 +18,22 @@ Given /the following comments exist/ do |comments_table|
 end
 
 
+Given /the articles '(\d+)' and '(\d+)' were merged/ do |id1,id2|
+   article = Article.find(id1)
+   article2 = Article.find(id2)
+   article.body = article.body + '\n' +article2.body
+   article.comments << article2.comments
+   article.save!
+   Article.find(id2).destroy
+end
+
+Then /'(.*)' should be author of article with id '(\d+)'/ do |author,id|
+   article = Article.find(id)
+   author.should == article.author
+end
+
+And /'(.*)' should not be author of article with id '(\d+)'/ do |author,id|
+   article = Article.find(id)
+   author.should_not == article.author
+end
 
