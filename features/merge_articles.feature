@@ -42,3 +42,9 @@ Feature: merge of similar articles
     Then I should see "Content1"
     And I should see "Content2"
 
+  Scenario: The autor of the new article should be the autor of one of the two merged articles 
+    Given that the articles '3' and '4' were merged
+    Then 'pepe' should be author of article with id '3'
+    And 'paco' should not be author of article with id '3' 
+
+
