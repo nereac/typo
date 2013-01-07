@@ -47,4 +47,11 @@ Feature: merge of similar articles
     Then 'pepe' should be author of article with id '3'
     And 'paco' should not be author of article with id '3' 
 
+  Scenario: The comments of the articles that have merged must appear as comments of the new article.
+    Given that the articles '3' and '4' were merged
+    When I am on the home page
+    Then I should see "Article1"
+    When I follow "Article1"
+    Then I should see "Comment1"
+    And I should see "Comment2"
 
