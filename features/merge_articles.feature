@@ -55,3 +55,11 @@ Feature: merge of similar articles
     Then I should see "Comment1"
     And I should see "Comment2"
 
+  Scenario: The title of the new article should be the title of one of the two merged articles 
+    Given that the articles '3' and '4' were merged
+    When I am on the home page
+    Then I should see "Article1"
+    And I should not see "Article2"
+
+
+
