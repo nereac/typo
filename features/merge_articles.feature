@@ -68,5 +68,13 @@ Feature: merge of similar articles
     And I press "Merge"
     Then I should be on the content page
 
+  Scenario: Admin can merge articles
+    Given I am logged into the admin panel
+    When I am on the edit article '3' page
+    Then I should see "Merge Articles"
+    When I fill in "merge_with" with "4"
+    And I press "Merge"
+    Then I should be on the content page
+    And I should see "he articles have been successfully merged"
 
 
