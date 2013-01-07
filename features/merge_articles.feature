@@ -33,4 +33,12 @@ Feature: merge of similar articles
     #And I am on the edit article '3' page
     #Then I should not see "Merge Articles"
 
+  Scenario: After merge two articles, the new article should be contain the text of the two original articles 
+    Given that the articles '3' and '4' were merged
+    And I am on the home page
+    Then I should see "Article1"
+    And I should not see "Article2"
+    When I follow "Article1"
+    Then I should see "Content1"
+    And I should see "Content2"
 
