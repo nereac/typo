@@ -24,4 +24,13 @@ Feature: merge of similar articles
     | 2  |  paco  |  Comment2 |     4      |    3    | 2012-12-12 12:12:00 |
 
 
+  Scenario: An user that isn't admin can't merge articles
+    Given I am on the login page
+    When I fill in "user_login" with "pepe" 
+    And I fill in "user_password" with "111111"
+    And I press "Login"
+    Then I should see "Login successful"
+    #And I am on the edit article '3' page
+    #Then I should not see "Merge Articles"
+
 
