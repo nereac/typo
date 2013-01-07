@@ -61,5 +61,12 @@ Feature: merge of similar articles
     Then I should see "Article1"
     And I should not see "Article2"
 
+  Scenario: The form field which specifies the ID of the article you want to merge must have merge_with value in its name attribute.
+    Given I am logged into the admin panel
+    When I am on the edit article '3' page
+    Then I fill in "merge_with" with "4"
+    And I press "Merge"
+    Then I should be on the content page
+
 
 
