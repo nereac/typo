@@ -9,9 +9,9 @@ Feature: merge of similar articles
     Given the blog is set up
 
     Given the following users exist:
-    | id  | login | password |      email    | name |
-    | 2   | pepe  |  111111  | pepe@mail.com | Pepe |
-    | 3   | paco  |  222222  | paco@mail.com | Paco |
+    | id  | login | password |      email    | name | profile_id |
+    | 2   | pepe  |  111111  | pepe@mail.com | Pepe |     2      |
+    | 3   | paco  |  222222  | paco@mail.com | Paco |     2      |
 
     Given the following articles exist:
     | id |   title  | author | user_id |   body   |      published_at    | 
@@ -30,8 +30,8 @@ Feature: merge of similar articles
     And I fill in "user_password" with "111111"
     And I press "Login"
     Then I should see "Login successful"
-    #And I am on the edit article '3' page
-    #Then I should not see "Merge Articles"
+    And I am on the edit article '3' page
+    Then I should not see "Merge Articles"
 
   Scenario: After merge two articles, the new article should be contain the text of the two original articles 
     Given that the articles '3' and '4' were merged
