@@ -481,6 +481,23 @@ describe Admin::ContentController do
     it_should_behave_like 'destroy action'
     it_should_behave_like 'autosave action'
 
+
+    describe 'merge articles action' do
+      before :each do
+        @article = Factory(:article,:user=>@user,:title=>"Title 1",:body=>"Body")
+        @article_to_merge = Factory(:article,:user=>@user,:title=>"Title 2",:body=>"Body 2")
+        @merged_article = Factory(:article,:user=>@user,:title=>"Title 1",:body=>"Body\nBody 2")
+      end
+
+      it 'should redirect to the edit page of article when id is invalid' do
+        post :merge_articles, 'id' => @article.id, 'merge_with' => @article.id
+        flash[:notice].should == _("Failed to merge Articles")
+        response.should redirect_to "/admin/content/edit/#{@article.id}"
+      end
+
+    end
+
+
     describe 'edit action' do
 
       it 'should edit article' do
