@@ -500,6 +500,34 @@ describe Admin::ContentController do
         post :merge_articles, 'id' => @article.id, 'merge_with' => @article_to_merge.id
       end
 
+      describe 'after merged the articles' do
+        before :each do
+          Article.stub(:merge_with).with(@article_to_merge.id).and_return(@merged_article)
+          post :merge_articles, 'id' => @article.id, 'merge_with' => @article_to_merge.id
+        end
+
+        it 'should be titled as one of the original articles' do
+          @merged_article.title.should == @article.title
+        end
+
+        it 'should have the same author as one of the original articles' do
+          @merged_article.author.should == @article.author
+        end
+
+        it 'Should add the body of an article to another' do
+          @merged_article.body.should == @article.body + "\n" + @article_to_merge.body
+        end
+
+        it 'should have the comments of the original articles' do
+          @merged_article.comments.should == @article.comments << @article_to_merge.comments
+        end
+
+        it 'should redirect to the content page' do
+          flash[:notice].should == _("The articles have been successfully merged")
+          response.should redirect_to(:action => 'index')
+        end
+      end
+
       describe 'after an invalid merge' do
         before :each do
           Article.stub(:merge_with).with(nil)
