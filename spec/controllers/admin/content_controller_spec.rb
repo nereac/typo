@@ -495,6 +495,21 @@ describe Admin::ContentController do
         response.should redirect_to "/admin/content/edit/#{@article.id}"
       end
 
+      it 'should call the model method that performs merge articles' do
+        Article.should_receive(:merge_with).with(@article_to_merge.id).and_return(@merged_article)
+        post :merge_articles, 'id' => @article.id, 'merge_with' => @article_to_merge.id
+      end
+
+      describe 'after an invalid merge' do
+        before :each do
+          Article.stub(:merge_with).with(nil)
+          post :merge_articles, 'id' => @article.id
+        end
+        it 'should redirect to the edit page of article' do
+          flash[:notice].should == _("Failed to merge Articles")
+          response.should redirect_to "/admin/content/edit/#{@article.id}"
+        end
+      end
     end
 
 
