@@ -682,6 +682,14 @@ describe Admin::ContentController do
     it_should_behave_like 'new action'
     it_should_behave_like 'destroy action'
 
+    describe 'merge action' do
+      it 'should not show the merge button' do
+        get :edit, 'id' => @article.id
+        response.should render_template('new')
+        response.should_not contain("Merge Articles")
+      end
+    end
+
     describe 'edit action' do
 
       it "should redirect if edit article doesn't his" do
