@@ -1,4 +1,7 @@
- require 'spec_helper'
+ ## merge articles para usuario admin - linea 485
+ ## merge articles para usuario no admin - linea 687
+
+require 'spec_helper'
 
 describe Admin::ContentController do
   render_views
@@ -489,6 +492,12 @@ describe Admin::ContentController do
         @merged_article = Factory(:article,:user=>@user,:title=>"Title 1",:body=>"Body\nBody 2")
       end
 
+      it 'should show the merge button' do
+        get :edit, 'id' => @article.id
+        response.should render_template('new')
+        response.should contain("Merge Articles")
+      end
+
       it 'should redirect to the edit page of article when id is invalid' do
         post :merge_articles, 'id' => @article.id, 'merge_with' => @article.id
         flash[:notice].should == _("Failed to merge Articles")
@@ -682,7 +691,7 @@ describe Admin::ContentController do
     it_should_behave_like 'new action'
     it_should_behave_like 'destroy action'
 
-    describe 'merge action' do
+    describe 'merge articles action' do
       it 'should not show the merge button' do
         get :edit, 'id' => @article.id
         response.should render_template('new')
