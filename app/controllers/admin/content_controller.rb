@@ -45,8 +45,7 @@ class Admin::ContentController < Admin::BaseController
         flash[:notice] = _("The articles have been successfully merged")
         redirect_to :action => 'index'
       else    
-        flash[:notice] = _("Failed to merge Articles")
-        redirect_to "/admin/content/edit/#{params[:id]}"
+        raise
       end
     rescue
       flash[:notice] = _("Failed to merge Articles")
