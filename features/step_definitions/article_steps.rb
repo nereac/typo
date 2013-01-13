@@ -20,11 +20,7 @@ end
 
 Given /the articles '(\d+)' and '(\d+)' were merged/ do |id1,id2|
    article = Article.find(id1)
-   article2 = Article.find(id2)
-   article.body = article.body + '\n' +article2.body
-   article.comments << article2.comments
-   article.save!
-   Article.find(id2).destroy
+   article.merge_with(id2)
 end
 
 Then /'(.*)' should be author of article with id '(\d+)'/ do |author,id|
