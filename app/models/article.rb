@@ -122,6 +122,18 @@ class Article < Content
 
   end
 
+  def merge_with(other_article_id)
+    article = Article.find(other_article_id)
+    if article
+      # Dejamos el titulo y autor del articulo que estabamos editando
+      self.body = self.body + "\n" + article.body
+      self.comments << article.comments
+      self.save!
+      Article.find(other_article_id).destroy
+      return self
+    end
+  end
+
   def year_url
     published_at.year.to_s
   end
